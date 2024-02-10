@@ -1,0 +1,10 @@
+{
+    "manifest_version": 3,
+    "name": "Share Mail",
+    "description": "Create shareable links to your emails",
+    "version": "1.0",
+    "action": {
+        "default_popup": "index.html",
+        "default_icon": "icon.png"
+    }
+}
