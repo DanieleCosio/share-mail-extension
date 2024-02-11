@@ -16,12 +16,24 @@ function tryInjectBtn() {
     const button = document.createElement("button");
     button.innerText = "Get link";
     button.addEventListener("click", () => {
-        alert("TODO");
+        const mail = getMailBody();
+        if (!mail) {
+            alert("Mail not found");
+            return;
+        }
+
+        getMailLink(mail);
     });
+
     button.setAttribute("sm-xt-data", "get-link");
 
     actionsContainer.firstChild?.appendChild(button);
     console.log("Done");
+}
+
+function getMailLink(mail: Element) {
+    // TODO Make request to backend and get the link
+    alert("Link: https://google.com");
 }
 
 function waitGmailUI(timeout: number = 3500, interval: number = 200) {
@@ -50,6 +62,15 @@ function waitGmailUI(timeout: number = 3500, interval: number = 200) {
     return new Promise<boolean>(checkCondition);
 }
 
+function getMailBody(): Element | null {
+    const email = document.querySelector("div.a3s div[dir='ltr']");
+    if (!email) {
+        return null;
+    }
+
+    return email;
+}
+
 async function init() {
     await waitGmailUI();
     tryInjectBtn();
@@ -60,5 +81,5 @@ async function init() {
     });
 }
 
-console.log("Share mail extensio started");
+console.log("Share mail extension started");
 init();
