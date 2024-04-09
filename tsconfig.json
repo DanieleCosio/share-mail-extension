@@ -1,11 +1,12 @@
 {
-  "compilerOptions": {
-    "target": "es2016",                                   
-    "module": "commonjs",                              
-    "strict": true,      
-    "skipLibCheck": true,
-    
-    "outDir": "dist",
-  },
-  "include": ["src/**/*", "tests/**/*"],
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "ES2022",
+        "strict": true,
+        "skipLibCheck": true,
+
+        "outFile": "dist/index.js",
+        "outDir": "dist"
+    },
+    "include": ["src/**/*", "tests/**/*"]
 }
