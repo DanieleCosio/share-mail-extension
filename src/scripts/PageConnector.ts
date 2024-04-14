@@ -1,6 +1,5 @@
 import { Config } from "../Config";
 
-const EVENT_TYPE: string = "extension-share-mail";
 export class PageConnector {
     /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
     static inject(): Promise<any> {
@@ -8,8 +7,8 @@ export class PageConnector {
             const getData = (event: MessageEvent) => {
                 if (
                     event.source !== window ||
-                    event.origin !== window.location.origin ||
-                    event.data?.type !== EVENT_TYPE
+                    event.origin !== Config.GMAIL_ORIGIN ||
+                    event.data?.type !== Config.EXTENSION_EVENT_TAG
                 ) {
                     console.warn("Message from unknown source");
                     return;
