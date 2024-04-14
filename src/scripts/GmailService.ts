@@ -1,4 +1,5 @@
 import { Config } from "../Config";
+import { emailBodyLinkMessage, EmailBodyLinkMessage } from "../types";
 
 export class GmailService {
     static waitGmailUI(
@@ -78,15 +79,15 @@ export class GmailService {
 
     static async getMailLink(mailElement: Element, email: string) {
         const url = new URL(Config.GET_LINK, Config.BASE_URL);
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                messageHtml: mailElement.innerHTML,
-                requestAccountOwner: email,
-            }),
+        const message: EmailBodyLinkMessage = { ...emailBodyLinkMessage };
+        message.params.url = url.toString();
+        message.params.request.body = JSON.stringify({
+            email,
+            body: mailElement.innerHTML,
+        });
+
+        chrome.runtime.sendMessage(message, (response) => {
+            console.log("Response received", response);
         });
     }
 }
