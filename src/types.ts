@@ -12,6 +12,7 @@ export type EmailBodyLinkMessage = {
         request: {
             method: "POST";
             headers: {
+                Accept: "application/json";
                 "Content-Type": "application/json";
             };
 
@@ -28,6 +29,7 @@ export const emailBodyLinkMessage: EmailBodyLinkMessage = {
         request: {
             method: "POST",
             headers: {
+                Accept: "application/json",
                 "Content-Type": "application/json",
             },
             body: "",

@@ -82,12 +82,13 @@ export class GmailService {
         const message: EmailBodyLinkMessage = { ...emailBodyLinkMessage };
         message.params.url = url.toString();
         message.params.request.body = JSON.stringify({
-            email,
-            body: mailElement.innerHTML,
+            requestAccountOwner: email,
+            messageHtml: mailElement.innerHTML,
         });
 
         chrome.runtime.sendMessage(message, (response) => {
             console.log("Response received", response);
+            alert(response);
         });
     }
 }
