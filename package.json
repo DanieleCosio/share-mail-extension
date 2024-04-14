@@ -5,8 +5,8 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "build": "make",
-        "dev": "nodemon  -w 'src' -e 'ts,json,html,css,scss' --exec 'make  || exit 1'"
+        "build-chrome": "make build-chrome",
+        "dev-chrome": "nodemon  -w 'src' -e 'ts,json,html,css,scss' --exec 'make dev-chrome || exit 1'"
     },
     "author": "",
     "license": "ISC",
