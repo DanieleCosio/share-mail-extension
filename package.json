@@ -12,6 +12,7 @@
     "license": "ISC",
     "devDependencies": {
         "@types/chrome": "^0.0.266",
+        "@types/quoted-printable": "^1.0.2",
         "@typescript-eslint/eslint-plugin": "^7.5.0",
         "@typescript-eslint/parser": "^7.5.0",
         "esbuild": "0.20.2",
@@ -22,5 +23,8 @@
         "nodemon": "^3.0.3",
         "prettier": "^3.2.5",
         "typescript": "^5.3.3"
+    },
+    "dependencies": {
+        "quoted-printable": "^1.0.1"
     }
 }
