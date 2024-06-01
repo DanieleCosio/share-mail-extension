@@ -1,3 +1,4 @@
 export const EventAction = {
-    SEND_REQUEST: "send_request",
+    GET_LINK: "get_link",
+    GET_BODY: "get_body",
 } as const;

@@ -1,5 +1,12 @@
 import { Config } from "../Config";
-import { emailBodyLinkMessage, EmailBodyLinkMessage } from "../types";
+import {
+    emailLinkMessage,
+    EmailLinkMessage,
+    getEmailBodyMessage,
+    GetEmailBodyMessage,
+} from "../types";
+import { pageHtmlToElement } from "./utils";
+import { decode } from "quoted-printable";
 
 export class GmailService {
     static waitGmailUI(
@@ -32,7 +39,7 @@ export class GmailService {
         return new Promise<boolean>(checkCondition);
     }
 
-    static tryInjectBtn(accountOwnerEmail: string) {
+    static tryInjectBtn(accountOwnerEmail: string, ik: string) {
         const actionsContainer = document.querySelector("div.hj");
         if (!actionsContainer) {
             console.log("No actions container found");
@@ -49,17 +56,14 @@ export class GmailService {
 
         const button = document.createElement("button");
         button.innerText = "Get link";
-        button.addEventListener("click", () => {
-            const mail = GmailService.getMailBody();
+        button.addEventListener("click", async () => {
+            const mail = await GmailService.getMailBody(ik);
             if (!mail) {
                 alert("Mail not found");
                 return;
             }
 
-            GmailService.getMailLink(
-                mail,
-                accountOwnerEmail /* GLOBALS.data[10] as string */,
-            );
+            GmailService.getMailLink(mail, accountOwnerEmail);
         });
 
         button.setAttribute("sm-xt-data", "get-link");
@@ -68,18 +72,52 @@ export class GmailService {
         console.log("Done");
     }
 
-    static getMailBody(): Element | null {
-        const email = document.querySelector("div.a3s > div");
-        if (!email) {
+    static async getMailBody(ik: string): Promise<Element | null> {
+        const emailId = document
+            .querySelector("h2[data-thread-perm-id]")
+            ?.getAttribute("data-thread-perm-id")
+            ?.replace("thread-", "msg-");
+        if (!emailId) {
+            console.warn("Email ID not found");
             return null;
         }
 
-        return email;
+        const message: GetEmailBodyMessage = { ...getEmailBodyMessage };
+        message.params.currentUrl = location;
+        message.params.ik = ik;
+        message.params.emailId = emailId;
+        const onResponseReceived = new Promise<{ data: string }>(
+            (resolve, reject) => {
+                chrome.runtime.sendMessage(message, (response) => {
+                    console.log("Response received", response);
+                    resolve(response);
+                });
+            },
+        );
+
+        const pageHtmlString = (await onResponseReceived)?.data;
+        const originalSourcePage = pageHtmlToElement(pageHtmlString);
+        const emailBodyFullString =
+            originalSourcePage.querySelector("pre")?.innerText;
+        if (!emailBodyFullString) {
+            console.warn("Email body not found");
+            return null;
+        }
+
+        const emailBodyMatch =
+            Config.EMAIL_BODY_MATCH_PATTERN.exec(emailBodyFullString);
+        if (!emailBodyMatch) {
+            console.warn("Email body not found");
+            return null;
+        }
+
+        const emailHtmlString = decode(emailBodyMatch[0]);
+        return pageHtmlToElement(emailHtmlString);
     }
 
     static async getMailLink(mailElement: Element, email: string) {
         const url = new URL(Config.GET_LINK, Config.BASE_URL);
-        const message: EmailBodyLinkMessage = { ...emailBodyLinkMessage };
+        const message: EmailLinkMessage = { ...emailLinkMessage };
         message.params.url = url.toString();
         message.params.request.body = JSON.stringify({
             requestAccountOwner: email,

@@ -6,12 +6,16 @@ let GLOBALS: any;
 
 (async () => {
     await GmailService.waitGmailUI();
+
     GLOBALS = await PageConnector.inject();
-    GmailService.tryInjectBtn(GLOBALS.data[10] as string);
+
+    const accountOwnerEmail = GLOBALS.data[10] as string;
+    const ik = GLOBALS.data[9] as string;
+    GmailService.tryInjectBtn(accountOwnerEmail, ik);
 
     window.addEventListener("hashchange", () => {
         setTimeout(() => {
-            GmailService.tryInjectBtn(GLOBALS.data[10] as string);
+            GmailService.tryInjectBtn(accountOwnerEmail, ik);
         }, 1000);
     });
 

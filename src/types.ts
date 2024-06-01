@@ -2,11 +2,40 @@ import { Config } from "./Config";
 import { EventAction } from "./enums";
 
 /*
+ * GetEmailBodyMessage
+ */
+export type GetEmailBodyMessage = {
+    type: typeof Config.EXTENSION_EVENT_TAG;
+    action: typeof EventAction.GET_BODY;
+    params: {
+        currentUrl: Location | undefined;
+        emailId: string;
+        ik: string;
+        request: {
+            method: "GET";
+        };
+    };
+};
+export const getEmailBodyMessage: GetEmailBodyMessage = {
+    type: Config.EXTENSION_EVENT_TAG,
+    action: EventAction.GET_BODY,
+    params: {
+        currentUrl: undefined,
+        emailId: "",
+        ik: "",
+        request: {
+            method: "GET",
+        },
+    },
+} as const;
+Object.freeze(getEmailBodyMessage);
+
+/*
  * EmailBodyLinkMessage
  */
-export type EmailBodyLinkMessage = {
+export type EmailLinkMessage = {
     type: typeof Config.EXTENSION_EVENT_TAG;
-    action: typeof EventAction.SEND_REQUEST;
+    action: typeof EventAction.GET_LINK;
     params: {
         url: string;
         request: {
@@ -20,10 +49,9 @@ export type EmailBodyLinkMessage = {
         };
     };
 };
-
-export const emailBodyLinkMessage: EmailBodyLinkMessage = {
+export const emailLinkMessage: EmailLinkMessage = {
     type: Config.EXTENSION_EVENT_TAG,
-    action: EventAction.SEND_REQUEST,
+    action: EventAction.GET_LINK,
     params: {
         url: "",
         request: {
@@ -36,4 +64,4 @@ export const emailBodyLinkMessage: EmailBodyLinkMessage = {
         },
     },
 } as const;
-Object.freeze(emailBodyLinkMessage);
+Object.freeze(emailLinkMessage);
