@@ -4,7 +4,9 @@
         "strict": true,
         "skipLibCheck": true,
         "moduleResolution": "bundler",
-        "outDir": "dist"
+        "outDir": "dist",
+        "types": ["./src/types.d.ts"],
+        
     },
     "include": ["src/**/*", "tests/**/*"]
 }
