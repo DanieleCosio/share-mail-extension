@@ -25,6 +25,7 @@
         "typescript": "^5.3.3"
     },
     "dependencies": {
+        "@webcomponents/custom-elements": "^1.6.0",
         "quoted-printable": "^1.0.1"
     }
 }
