@@ -1,10 +1,13 @@
 import { PageConnector } from "../PageConnector";
 import { GmailService } from "../GmailService";
+import { Components } from "../../components/Components";
+/* import { UI } from "../UI"; */
 
 /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
 let GLOBALS: any;
 
 (async () => {
+    Components.load();
     await GmailService.waitGmailUI();
 
     GLOBALS = await PageConnector.inject();

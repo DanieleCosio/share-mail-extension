@@ -1,3 +1,5 @@
+import Btn from "../components/Btn/Btn";
+import Modal from "../components/Modal/Modal";
 import { Config } from "../Config";
 import {
     emailLinkMessage,
@@ -40,33 +42,48 @@ export class GmailService {
     }
 
     static tryInjectBtn(accountOwnerEmail: string, ik: string) {
+        let modal = document.querySelector("sm-modal");
+        if (!modal) {
+            document.body.style.position = "relative";
+            modal = new Modal();
+            document.body.appendChild(modal);
+
+            // Not the best ergonomics, but it works
+            const getLinkButton = modal.shadowRoot
+                ?.querySelector("sm-btn")
+                ?.shadowRoot?.querySelector("button");
+
+            if (getLinkButton) {
+                getLinkButton.addEventListener("click", async () => {
+                    const mail = await GmailService.getMailBody(ik);
+                    if (!mail) {
+                        alert("Mail not found");
+                        return;
+                    }
+
+                    GmailService.getMailLink(mail, accountOwnerEmail);
+                    console.log("Mail link received");
+                });
+            }
+        }
+
         const actionsContainer = document.querySelector("div.hj");
         if (!actionsContainer) {
             console.log("No actions container found");
             return;
         }
 
-        const existingButton = actionsContainer.querySelector(
-            "button[sm-xt-data='get-link']",
-        );
+        const existingButton = actionsContainer.querySelector("sm-button");
         if (existingButton) {
             console.log("Button already exists");
             return;
         }
 
-        const button = document.createElement("button");
-        button.innerText = "Get link";
-        button.addEventListener("click", async () => {
-            const mail = await GmailService.getMailBody(ik);
-            if (!mail) {
-                alert("Mail not found");
-                return;
-            }
-
-            GmailService.getMailLink(mail, accountOwnerEmail);
+        const button = new Btn();
+        button.text = "Get link";
+        button.addEventListener("click", () => {
+            (modal as Modal).isOpen = true;
         });
-
-        button.setAttribute("sm-xt-data", "get-link");
 
         actionsContainer.firstChild?.appendChild(button);
         console.log("Done");
