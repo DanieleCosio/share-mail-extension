@@ -1,0 +1,112 @@
+<style>
+    .sm_modal {
+        display: flex;
+        flex-direction: column;
+        font-family: "Open Sans", sans-serif;
+        letter-spacing: 1px;
+        border-radius: 2px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        max-width: 100vw;
+        box-shadow: 0px 0px 78px 5px var(--sm_shadow-color);
+        padding: 8px 16px 24px 16px;
+        color: var(--sm_secondary-color);
+        background: #fff;
+    }
+
+    .close {
+        display: none;
+    }
+
+    .sm_modal .sm_modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .sm_modal .sm_modal-header .sm_modal-close {
+        background-color: #fff;
+        border: 2px solid var(--sm_primary-color);
+        border-radius: 50%;
+        padding: 2px;
+        cursor: pointer;
+        box-shadow: 1px 1px 0px 0px var(--sm_primary-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        transform: translate(8px, 0);
+    }
+
+    .sm_modal .sm_modal-header .sm_modal-close:active {
+        box-shadow: 0px 0px 0px 0px;
+        transform: translate(9px, 1px);
+    }
+
+    .sm_modal .sm_modal-header .sm_modal-close i,
+    .sm_modal .sm_modal-header .sm_modal-close i > svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .sm_modal .sm_modal-content .sm_modal-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: var(--sm_secondary-color);
+    }
+
+    .sm_modal .sm_modal-content {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 16px;
+    }
+
+    .sm_modal .sm_modal-content .field {
+        display: flex;
+        align-items: center;
+    }
+
+    .sm_modal .sm_modal-content .field input[type="checkbox"] {
+        accent-color: var(--sm_primary-color);
+        margin-left: 0;
+    }
+</style>
+
+<div class="sm_modal close">
+    <div class="sm_modal-header">
+        <button class="sm_modal-close">
+            <i>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-x"
+                >
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                </svg>
+            </i>
+        </button>
+    </div>
+    <div class="sm_modal-content">
+        <span class="sm_modal-title">Get email sharable link</span>
+
+        <div class="field">
+            <input name="sm_include-attachments" type="checkbox" />
+            <label for="sm_include-attachments">Include attachments</label>
+        </div>
+
+        <sm-btn text="GET LINK"></sm-btn>
+    </div>
+</div>
