@@ -7,6 +7,7 @@ export function createBuildSettings(options) {
         loader: {
             ".css": "text",
             ".html": "text",
+            ".svg": "text",
         },
 
         plugins: [
