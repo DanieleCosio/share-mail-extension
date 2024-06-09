@@ -4,6 +4,7 @@ import { Config } from "../Config";
 import {
     emailLinkMessage,
     EmailLinkMessage,
+    EmailLinkResponse,
     getEmailBodyMessage,
     GetEmailBodyMessage,
 } from "../types";
@@ -55,14 +56,24 @@ export class GmailService {
 
             if (getLinkButton) {
                 getLinkButton.addEventListener("click", async () => {
+                    (modal as Modal).isLoading = true;
+
                     const mail = await GmailService.getMailBody(ik);
                     if (!mail) {
                         alert("Mail not found");
                         return;
                     }
 
-                    GmailService.getMailLink(mail, accountOwnerEmail);
+                    const data = await GmailService.getMailLink(
+                        mail,
+                        accountOwnerEmail,
+                    );
+
                     console.log("Mail link received");
+
+                    (modal as Modal).emailUrl = data.data.url;
+                    (modal as Modal).expirationDate = data.data.expire_at;
+                    (modal as Modal).isLoading = false;
                 });
             }
         }
@@ -132,7 +143,10 @@ export class GmailService {
         return pageHtmlToElement(emailHtmlString);
     }
 
-    static async getMailLink(mailElement: Element, email: string) {
+    static async getMailLink(
+        mailElement: Element,
+        email: string,
+    ): Promise<EmailLinkResponse> {
         const url = new URL(Config.GET_LINK, Config.BASE_URL);
         const message: EmailLinkMessage = { ...emailLinkMessage };
         message.params.url = url.toString();
@@ -141,9 +155,14 @@ export class GmailService {
             messageHtml: mailElement.innerHTML,
         });
 
-        chrome.runtime.sendMessage(message, (response) => {
-            console.log("Response received", response);
-            alert(response);
+        return new Promise<EmailLinkResponse>((resolve, reject) => {
+            chrome.runtime.sendMessage(
+                message,
+                (response: EmailLinkResponse) => {
+                    console.log("Response received", response);
+                    resolve(response);
+                },
+            );
         });
     }
 }
