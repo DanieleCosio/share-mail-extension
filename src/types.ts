@@ -65,3 +65,10 @@ export const emailLinkMessage: EmailLinkMessage = {
     },
 } as const;
 Object.freeze(emailLinkMessage);
+
+export type EmailLinkResponse = {
+    data: {
+        url: string;
+        expire_at: string;
+    };
+};

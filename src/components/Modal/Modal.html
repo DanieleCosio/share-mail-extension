@@ -9,7 +9,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 300px;
+        width: 350px;
         max-width: 100vw;
         box-shadow: 0px 0px 78px 5px var(--sm_shadow-color);
         padding: 8px 16px 24px 16px;
@@ -31,7 +31,6 @@
     .sm_modal .sm_modal-header .sm_modal-close {
         background-color: #fff;
         border: 2px solid var(--sm_primary-color);
-        border-radius: 50%;
         padding: 2px;
         cursor: pointer;
         box-shadow: 1px 1px 0px 0px var(--sm_primary-color);
@@ -47,10 +46,61 @@
         transform: translate(9px, 1px);
     }
 
-    .sm_modal .sm_modal-header .sm_modal-close i,
-    .sm_modal .sm_modal-header .sm_modal-close i > svg {
+    .sm_modal .sm_modal-header .sm_modal-close sm-icon,
+    .sm_modal .sm_modal-header .sm_modal-close sm-icon::part(modal-close-icon),
+    .sm_modal
+        .sm_modal-header
+        .sm_modal-close
+        sm-icon::part(modal-close-icon--svg) {
+        width: 12px;
+        height: 12px;
+    }
+
+    .sm_modal
+        .sm_modal-header
+        .sm_modal-close
+        sm-icon::part(modal-close-icon--svg) {
+        color: var(--sm_secondary-color);
+    }
+
+    .sm_modal .sm_modal-content .sm_copy-to-clipboard {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        border: 2px solid var(--sm_primary-color);
+        box-shadow:
+            1px 1px 0px 0px var(--sm_primary-color),
+            2px 2px 0px 0px var(--sm_primary-color),
+            3px 3px 0px 0px var(--sm_primary-color);
+        width: 26px;
+        height: 26px;
+        margin-left: auto;
+    }
+
+    .sm_modal .sm_modal-content .sm_copy-to-clipboard:active {
+        box-shadow: 0px 0px 0px 0px;
+        transform: translate(3px, 3px);
+    }
+
+    .sm_modal .sm_modal-content .sm_copy-to-clipboard sm-icon,
+    .sm_modal
+        .sm_modal-content
+        .sm_copy-to-clipboard
+        sm-icon::part(modal-clipboard-icon),
+    .sm_modal
+        .sm_modal-content
+        .sm_copy-to-clipboard
+        sm-icon::part(modal-clipboard-icon--svg) {
         width: 16px;
         height: 16px;
+    }
+
+    .sm_modal
+        .sm_modal-content
+        .sm_copy-to-clipboard
+        sm-icon::part(modal-clipboard-icon--svg) {
+        color: var(--sm_secondary-color);
     }
 
     .sm_modal .sm_modal-content .sm_modal-title {
@@ -63,46 +113,75 @@
         display: flex;
         flex-direction: column;
         align-items: start;
-        gap: 16px;
+        gap: 12px;
     }
 
-    .sm_modal .sm_modal-content .field {
+    .sm_modal .sm_modal-content .sm_field {
         display: flex;
         align-items: center;
     }
 
-    .sm_modal .sm_modal-content .field input[type="checkbox"] {
+    .sm_modal .sm_modal-content .sm_field label {
+        font-size: 0.85rem;
+    }
+
+    .sm_modal .sm_modal-content .sm_field input[type="checkbox"] {
         accent-color: var(--sm_primary-color);
         margin-left: 0;
+    }
+
+    .sm_modal .sm_modal-content .sm_link-wrapper {
+        display: flex;
+        margin: 8px 0;
+        height: 30px;
+        width: 100%;
+    }
+
+    .sm_modal .sm_modal-content .sm_link-wrapper a {
+        color: var(--sm_secondary-color);
+        text-decoration: none;
+        font-size: 1.1rem;
+        margin-right: 8px;
+    }
+
+    .sm_modal .sm_modal-content .sm_link-wrapper a:hover {
+        text-decoration: underline;
+    }
+
+    .sm_modal .sm_modal-content .sm_link-wrapper time {
+        font-size: 0.65rem;
+        display: block;
+        transform: translate(0, -2px);
+        color: var(--sm_primary-color);
+    }
+
+    .hidden {
+        display: none !important;
     }
 </style>
 
 <div class="sm_modal close">
     <div class="sm_modal-header">
         <button class="sm_modal-close">
-            <i>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-x"
-                >
-                    <path d="M18 6 6 18" />
-                    <path d="m6 6 12 12" />
-                </svg>
-            </i>
+            <sm-icon icon="close" name="modal-close-icon"></sm-icon>
         </button>
     </div>
     <div class="sm_modal-content">
         <span class="sm_modal-title">Get email sharable link</span>
 
-        <div class="field">
+        <div class="sm_link-wrapper">
+            <sm-loader active="false"></sm-loader>
+            <div class="sm_link">
+                <a href="" target="_blank"></a>
+                <time class="sm_link-expiration"></time>
+            </div>
+
+            <button class="sm_copy-to-clipboard hidden">
+                <sm-icon icon="clipboard" name="modal-clipboard-icon"></sm-icon>
+            </button>
+        </div>
+
+        <div class="sm_field">
             <input name="sm_include-attachments" type="checkbox" />
             <label for="sm_include-attachments">Include attachments</label>
         </div>

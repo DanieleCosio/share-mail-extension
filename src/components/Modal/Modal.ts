@@ -3,11 +3,17 @@ import ModalHtml from "./Modal.html";
 
 class Modal extends HTMLElement {
     modal: HTMLElement | null;
+    loader: HTMLElement | null;
 
     constructor() {
         super();
         this.isOpen = false;
+        this.isLoading = true;
         this.modal = null;
+        this.loader = null;
+        this.emailUrl = "";
+        this.expirationDate = "";
+        this.useAttachments = false;
     }
 
     connectedCallback() {
@@ -26,6 +32,22 @@ class Modal extends HTMLElement {
         closeButton.addEventListener("click", () => {
             this.isOpen = false;
         });
+
+        this.loader = shadow.querySelector("sm-loader");
+
+        const clipboadButton = shadow.querySelector(".sm_copy-to-clipboard");
+        if (!clipboadButton) {
+            throw new Error("Clipboard button not found");
+        }
+
+        clipboadButton.addEventListener("click", async (event) => {
+            const icon = (event.currentTarget as Element)?.querySelector(
+                "sm-icon",
+            );
+            const text = clipboadButton.parentElement?.querySelector("a")?.href;
+            await navigator.clipboard.writeText(text ?? "");
+            icon?.setAttribute("icon", "clipboard-check");
+        });
     }
 
     get isOpen(): boolean {
@@ -39,6 +61,73 @@ class Modal extends HTMLElement {
         }
 
         this.modal?.classList.add("close");
+    }
+
+    get isLoading(): boolean {
+        return this.loader?.getAttribute("active") === "true";
+    }
+
+    set isLoading(value: boolean) {
+        if (value) {
+            this.loader?.setAttribute("active", "true");
+            return;
+        }
+
+        this.loader?.setAttribute("active", "false");
+    }
+
+    get emailUrl(): string {
+        return this.modal?.querySelector("a")?.getAttribute("href") ?? "";
+    }
+
+    set emailUrl(value: string) {
+        const emailLink = this.modal?.querySelector("a");
+        if (!emailLink) {
+            return;
+        }
+
+        emailLink.setAttribute("href", value);
+        emailLink.textContent = value;
+
+        if (!value) {
+            return;
+        }
+
+        emailLink.parentElement?.parentElement
+            ?.querySelector(".sm_copy-to-clipboard")
+            ?.classList.remove("hidden");
+    }
+
+    get expirationDate(): string {
+        return this.modal?.querySelector("time")?.textContent ?? "";
+    }
+
+    set expirationDate(value: string) {
+        const time = this.modal?.querySelector("time");
+        if (!time) {
+            return;
+        }
+
+        time.textContent = `Expiration date: ${value}`;
+        time.setAttribute("datetime", value);
+    }
+
+    get useAttachments(): boolean {
+        return (
+            (
+                this.modal?.querySelector(
+                    "input[type=checkbox]",
+                ) as HTMLInputElement
+            )?.checked ?? false
+        );
+    }
+
+    set useAttachments(value: boolean) {
+        (
+            this.modal?.querySelector(
+                "input[type=checkbox]",
+            ) as HTMLInputElement
+        ).checked = value;
     }
 }
 
