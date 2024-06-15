@@ -123,11 +123,12 @@ class Modal extends HTMLElement {
     }
 
     set useAttachments(value: boolean) {
-        (
-            this.modal?.querySelector(
-                "input[type=checkbox]",
-            ) as HTMLInputElement
-        ).checked = value;
+        const checkbox = this.modal?.querySelector("input[type=checkbox]");
+        if (!checkbox) {
+            return;
+        }
+
+        (checkbox as HTMLInputElement).checked = value;
     }
 }
 
