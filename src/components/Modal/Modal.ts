@@ -4,6 +4,7 @@ import ModalHtml from "./Modal.html";
 class Modal extends HTMLElement {
     modal: HTMLElement | null;
     loader: HTMLElement | null;
+    clearEventListener: () => void;
 
     constructor() {
         super();
@@ -14,6 +15,13 @@ class Modal extends HTMLElement {
         this.emailUrl = "";
         this.expirationDate = "";
         this.useAttachments = false;
+        this.clearEventListener = () => {
+            this.isOpen = false;
+            this.emailUrl = "";
+            this.expirationDate = "";
+            this.useAttachments = false;
+            this.isLoading = false;
+        };
     }
 
     connectedCallback() {
@@ -48,6 +56,12 @@ class Modal extends HTMLElement {
             await navigator.clipboard.writeText(text ?? "");
             icon?.setAttribute("icon", "clipboard-check");
         });
+
+        window.addEventListener("hashchange", this.clearEventListener);
+    }
+
+    disconnectedCallback() {
+        this.removeEventListener("hashchange", this.clearEventListener);
     }
 
     get isOpen(): boolean {
@@ -105,6 +119,12 @@ class Modal extends HTMLElement {
     set expirationDate(value: string) {
         const time = this.modal?.querySelector("time");
         if (!time) {
+            return;
+        }
+
+        if (!value) {
+            time.textContent = "";
+            time.removeAttribute("datetime");
             return;
         }
 
