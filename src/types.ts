@@ -72,3 +72,11 @@ export type EmailLinkResponse = {
         expire_at: string;
     };
 };
+
+export type Attachment = {
+    name: string;
+    url: string;
+    size: string;
+    mimeType: string;
+    preview: string;
+};

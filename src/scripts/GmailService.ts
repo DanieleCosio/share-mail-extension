@@ -2,6 +2,7 @@ import Btn from "../components/Btn/Btn";
 import Modal from "../components/Modal/Modal";
 import { Config } from "../Config";
 import {
+    Attachment,
     emailLinkMessage,
     EmailLinkMessage,
     EmailLinkResponse,
@@ -62,6 +63,11 @@ export class GmailService {
                     if (!mail) {
                         alert("Mail not found");
                         return;
+                    }
+
+                    let attachments: Attachment[] = [];
+                    if ((modal as Modal).useAttachments) {
+                        attachments = GmailService.getAttachments();
                     }
 
                     const data = await GmailService.getMailLink(
@@ -146,6 +152,7 @@ export class GmailService {
     static async getMailLink(
         mailElement: Element,
         email: string,
+        attachments: Attachment[] = [],
     ): Promise<EmailLinkResponse> {
         const url = new URL(Config.GET_LINK, Config.BASE_URL);
         const message: EmailLinkMessage = { ...emailLinkMessage };
@@ -153,6 +160,7 @@ export class GmailService {
         message.params.request.body = JSON.stringify({
             requestAccountOwner: email,
             messageHtml: mailElement.innerHTML,
+            attachments,
         });
 
         return new Promise<EmailLinkResponse>((resolve, reject) => {
@@ -164,5 +172,43 @@ export class GmailService {
                 },
             );
         });
+    }
+
+    static getAttachments(): Attachment[] {
+        const nameAndTypeRegex = /^([^:]*:[^:]*)/;
+        const attachmentsElements =
+            document.querySelectorAll("span[download_url]");
+        const attachments: Attachment[] = [];
+
+        for (const attachment of attachmentsElements) {
+            const nameAndTypeEncoded = attachment.getAttribute("download_url");
+            if (!nameAndTypeEncoded) {
+                continue;
+            }
+
+            const nameAndType = nameAndTypeEncoded.match(nameAndTypeRegex)?.[0];
+            if (!nameAndType) {
+                continue;
+            }
+
+            const [type, name] = nameAndType.split(":");
+            const url = attachment.querySelector("a")?.getAttribute("href");
+            const size = attachment.querySelectorAll("div span")[2]?.innerHTML;
+            const previewUrl = attachment
+                .querySelector("img")
+                ?.getAttribute("src");
+
+            attachments.push({
+                name: decodeURIComponent(name),
+                mimeType: type,
+                url: url ?? "",
+                preview: previewUrl ?? "",
+                size: size ?? "",
+            });
+        }
+
+        console.log("Attachments", attachments);
+
+        return attachments;
     }
 }
