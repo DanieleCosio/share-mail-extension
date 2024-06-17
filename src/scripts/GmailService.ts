@@ -73,6 +73,7 @@ export class GmailService {
                     const data = await GmailService.getMailLink(
                         mail,
                         accountOwnerEmail,
+                        attachments,
                     );
 
                     console.log("Mail link received");
