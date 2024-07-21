@@ -1,3 +1,33 @@
+<div class="sm_modal close">
+    <div class="sm_modal-header">
+        <button class="sm_modal-close">
+            <sm-icon icon="close" name="modal-close-icon"></sm-icon>
+        </button>
+    </div>
+    <div class="sm_modal-content">
+        <span class="sm_modal-title">Get email sharable link</span>
+
+        <div class="sm_link-wrapper">
+            <sm-loader active="false"></sm-loader>
+            <div class="sm_link">
+                <a href="" target="_blank"></a>
+                <time class="sm_link-expiration"></time>
+            </div>
+
+            <button class="sm_copy-to-clipboard hidden">
+                <sm-icon icon="clipboard" name="modal-clipboard-icon"></sm-icon>
+            </button>
+        </div>
+
+        <div class="sm_field">
+            <input name="sm_include-attachments" type="checkbox" />
+            <label for="sm_include-attachments">Include attachments</label>
+        </div>
+
+        <sm-btn text="GET LINK"></sm-btn>
+    </div>
+</div>
+
 <style>
     .sm_modal {
         display: flex;
@@ -159,33 +189,3 @@
         display: none !important;
     }
 </style>
-
-<div class="sm_modal close">
-    <div class="sm_modal-header">
-        <button class="sm_modal-close">
-            <sm-icon icon="close" name="modal-close-icon"></sm-icon>
-        </button>
-    </div>
-    <div class="sm_modal-content">
-        <span class="sm_modal-title">Get email sharable link</span>
-
-        <div class="sm_link-wrapper">
-            <sm-loader active="false"></sm-loader>
-            <div class="sm_link">
-                <a href="" target="_blank"></a>
-                <time class="sm_link-expiration"></time>
-            </div>
-
-            <button class="sm_copy-to-clipboard hidden">
-                <sm-icon icon="clipboard" name="modal-clipboard-icon"></sm-icon>
-            </button>
-        </div>
-
-        <div class="sm_field">
-            <input name="sm_include-attachments" type="checkbox" />
-            <label for="sm_include-attachments">Include attachments</label>
-        </div>
-
-        <sm-btn text="GET LINK"></sm-btn>
-    </div>
-</div>
