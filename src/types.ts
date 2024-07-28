@@ -69,6 +69,7 @@ Object.freeze(emailLinkMessage);
 export type EmailLinkResponse = {
     data: {
         url: string;
+        password: string;
         expire_at: string;
     };
 };
@@ -79,4 +80,11 @@ export type Attachment = {
     size: string;
     mimeType: string;
     preview: string;
+};
+
+export type Email = {
+    subject: string;
+    body: string;
+    ownerAddress: string;
+    attachments: Attachment[];
 };

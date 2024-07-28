@@ -11,12 +11,19 @@
             <sm-loader active="false"></sm-loader>
             <div class="sm_link">
                 <a href="" target="_blank"></a>
-                <time class="sm_link-expiration"></time>
+                <time class="sm_link-expiration info-text"></time>
             </div>
 
             <button class="sm_copy-to-clipboard hidden">
                 <sm-icon icon="clipboard" name="modal-clipboard-icon"></sm-icon>
             </button>
+        </div>
+
+        <div class="sm_link-password hidden">
+            <span class="prefix">Code:</span>
+            <span class="value"></span>
+            <br />
+            <span class="info-text">Use if requested.</span>
         </div>
 
         <div class="sm_field">
@@ -167,18 +174,39 @@
         width: 100%;
     }
 
-    .sm_modal .sm_modal-content .sm_link-wrapper a {
+    .sm_modal .sm_modal-content .sm_link-wrapper a,
+    .sm_modal .sm_modal-content .sm_link-wrapper .sm_link-password {
         color: var(--sm_secondary-color);
         text-decoration: none;
         font-size: 1.1rem;
         margin-right: 8px;
     }
 
+    .sm_modal .sm_modal-content .sm_link-password .prefix {
+        background-color: var(--sm_secondary-color);
+        color: #fff;
+        font-weight: 600;
+        margin-right: 0.25rem;
+        padding: 0.15rem;
+    }
+
+    .sm_modal .sm_modal-content .sm_link-password .value {
+        color: var(--sm_secondary-color);
+        background-color: #fff;
+        font-weight: 500;
+        padding: 0;
+    }
+
+    .sm_modal .sm_modal-content .sm_link-password .info-text {
+        margin-top: 0.25rem;
+    }
+
     .sm_modal .sm_modal-content .sm_link-wrapper a:hover {
         text-decoration: underline;
     }
 
-    .sm_modal .sm_modal-content .sm_link-wrapper time {
+    .sm_modal .sm_modal-content .sm_link-wrapper time,
+    .info-text {
         font-size: 0.65rem;
         display: block;
         transform: translate(0, -2px);

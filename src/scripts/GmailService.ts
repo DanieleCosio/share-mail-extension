@@ -3,6 +3,7 @@ import Modal from "../components/Modal/Modal";
 import { Config } from "../Config";
 import {
     Attachment,
+    Email,
     emailLinkMessage,
     EmailLinkMessage,
     EmailLinkResponse,
@@ -59,6 +60,7 @@ export class GmailService {
                 getLinkButton.addEventListener("click", async () => {
                     (modal as Modal).isLoading = true;
 
+                    const subject = await GmailService.getMailSubject();
                     const mail = await GmailService.getMailBody(ik);
                     if (!mail) {
                         alert("Mail not found");
@@ -70,15 +72,17 @@ export class GmailService {
                         attachments = GmailService.getAttachments();
                     }
 
-                    const data = await GmailService.getMailLink(
-                        mail,
-                        accountOwnerEmail,
+                    const data = await GmailService.getMailLink({
+                        subject,
+                        body: mail.innerHTML,
+                        ownerAddress: accountOwnerEmail,
                         attachments,
-                    );
+                    });
 
                     console.log("Mail link received");
 
                     (modal as Modal).emailUrl = data.data.url;
+                    (modal as Modal).password = data.data.password;
                     (modal as Modal).expirationDate = data.data.expire_at;
                     (modal as Modal).isLoading = false;
                 });
@@ -150,18 +154,25 @@ export class GmailService {
         return pageHtmlToElement(emailHtmlString);
     }
 
-    static async getMailLink(
-        mailElement: Element,
-        email: string,
-        attachments: Attachment[] = [],
-    ): Promise<EmailLinkResponse> {
+    static async getMailSubject(): Promise<string> {
+        // TODO: Implement same logic as in getMailBody
+        const subjectElement = document.querySelector("h2.hP");
+        if (!subjectElement) {
+            return "";
+        }
+
+        return subjectElement.innerHTML;
+    }
+
+    static async getMailLink(email: Email): Promise<EmailLinkResponse> {
         const url = new URL(Config.GET_LINK, Config.BASE_URL);
         const message: EmailLinkMessage = { ...emailLinkMessage };
         message.params.url = url.toString();
         message.params.request.body = JSON.stringify({
-            requestAccountOwner: email,
-            messageHtml: mailElement.innerHTML,
-            attachments,
+            requestAccountOwner: email.ownerAddress,
+            subject: email.subject,
+            messageHtml: email.body,
+            attachments: email.attachments,
         });
 
         return new Promise<EmailLinkResponse>((resolve, reject) => {

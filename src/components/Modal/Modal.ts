@@ -14,6 +14,7 @@ class Modal extends HTMLElement {
         this.loader = null;
         this.emailUrl = "";
         this.expirationDate = "";
+        this.password = "";
         this.useAttachments = false;
         this.clearEventListener = () => {
             this.isOpen = false;
@@ -149,6 +150,31 @@ class Modal extends HTMLElement {
         }
 
         (checkbox as HTMLInputElement).checked = value;
+    }
+
+    get password(): string {
+        return this.password;
+    }
+
+    set password(value: string) {
+        const passwordValueElement = this.modal?.querySelector(
+            ".sm_link-password>.value",
+        );
+
+        if (!passwordValueElement) {
+            return;
+        }
+
+        if (
+            !value &&
+            !passwordValueElement?.parentElement?.classList.contains("hidden")
+        ) {
+            passwordValueElement?.classList.add("hidden");
+            return;
+        }
+
+        passwordValueElement.textContent = value;
+        passwordValueElement.parentElement?.classList.remove("hidden");
     }
 }
 
