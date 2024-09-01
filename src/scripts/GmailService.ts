@@ -1,5 +1,3 @@
-import Btn from "../components/Btn/Btn";
-import Modal from "../components/Modal/Modal";
 import { Config } from "../Config";
 import {
     Attachment,
@@ -12,6 +10,7 @@ import {
 } from "../types";
 import { pageHtmlToElement } from "./utils";
 import { decode } from "quoted-printable";
+import { ExtensionModal } from "share-mail-components";
 
 export class GmailService {
     static waitGmailUI(
@@ -45,10 +44,11 @@ export class GmailService {
     }
 
     static tryInjectBtn(accountOwnerEmail: string, ik: string) {
-        let modal = document.querySelector("sm-modal");
+        let modal = document.querySelector("sm-extension-modal");
         if (!modal) {
             document.body.style.position = "relative";
-            modal = new Modal();
+            //modal = new ExtensionModal();
+            modal = document.createElement("sm-extension-modal");
             document.body.appendChild(modal);
 
             // Not the best ergonomics, but it works
@@ -58,7 +58,7 @@ export class GmailService {
 
             if (getLinkButton) {
                 getLinkButton.addEventListener("click", async () => {
-                    (modal as Modal).isLoading = true;
+                    (modal as ExtensionModal).isLoading = true;
 
                     const subject = await GmailService.getMailSubject();
                     const mail = await GmailService.getMailBody(ik);
@@ -68,7 +68,7 @@ export class GmailService {
                     }
 
                     let attachments: Attachment[] = [];
-                    if ((modal as Modal).useAttachments) {
+                    if ((modal as ExtensionModal).useAttachments) {
                         attachments = GmailService.getAttachments();
                     }
 
@@ -81,10 +81,11 @@ export class GmailService {
 
                     console.log("Mail link received");
 
-                    (modal as Modal).emailUrl = data.data.url;
-                    (modal as Modal).password = data.data.password;
-                    (modal as Modal).expirationDate = data.data.expire_at;
-                    (modal as Modal).isLoading = false;
+                    (modal as ExtensionModal).emailUrl = data.data.url;
+                    (modal as ExtensionModal).password = data.data.password;
+                    (modal as ExtensionModal).expirationDate =
+                        data.data.expire_at;
+                    (modal as ExtensionModal).isLoading = false;
                 });
             }
         }
@@ -101,10 +102,10 @@ export class GmailService {
             return;
         }
 
-        const button = new Btn();
-        button.text = "Get link";
+        const button = document.createElement("sm-btn");
+        button.innerText = "Get link";
         button.addEventListener("click", () => {
-            (modal as Modal).isOpen = true;
+            (modal as ExtensionModal).isOpen = true;
         });
 
         actionsContainer.firstChild?.appendChild(button);
