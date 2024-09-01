@@ -15,6 +15,9 @@ export function createBuildSettings(options) {
                 force: true,
             }),
         ],
+        treeShaking: false,
+        inject: ["src/components-shim.ts"],
+        /* external: ["share-mail-components"], */
         ...options,
     };
 }

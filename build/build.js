@@ -8,7 +8,7 @@ const browsers = {
 };
 
 const args = process.argv.slice(2);
-const buildSettings = { minify: true };
+const buildSettings = { minify: false };
 let browser = browsers.CHROME;
 
 if (args.includes("--dev")) {
