@@ -1,3 +1,4 @@
 dev:
-	node build/esbuild.js
+	node build/app.build.js
+	node build/extension.build.js
 	templ generate

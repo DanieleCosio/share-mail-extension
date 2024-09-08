@@ -1,10 +1,10 @@
 package models
 
 import (
+	"backend/internal/orm"
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
-	"sharemail/internal/orm"
 )
 
 type Email struct {

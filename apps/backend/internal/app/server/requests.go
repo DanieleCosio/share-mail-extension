@@ -1,7 +1,7 @@
 package server
 
 import (
-	"sharemail/internal/app/models"
+	"backend/internal/app/models"
 )
 
 type GetEmailLinkBody struct {

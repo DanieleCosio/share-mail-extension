@@ -1,10 +1,10 @@
 package db
 
 import (
+	"backend/internal/orm"
 	"context"
 	"fmt"
 	"os"
-	"sharemail/internal/orm"
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"

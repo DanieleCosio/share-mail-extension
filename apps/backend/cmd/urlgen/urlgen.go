@@ -1,10 +1,10 @@
 package main
 
 import (
+	"backend/internal/config"
+	"backend/internal/url"
 	"fmt"
 	"os"
-	"sharemail/internal/config"
-	"sharemail/internal/url"
 	"strconv"
 )
 

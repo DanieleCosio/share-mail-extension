@@ -1,10 +1,10 @@
 package server
 
 import (
+	"backend/internal/config"
 	"errors"
 	"os"
 	"path"
-	"sharemail/internal/config"
 	"testing"
 )
 

@@ -1,15 +1,15 @@
 package server
 
 import (
+	"backend/internal/app/models"
+	"backend/internal/config"
+	"backend/internal/db"
+	"backend/internal/orm"
 	"context"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
-	"sharemail/internal/app/models"
-	"sharemail/internal/config"
-	"sharemail/internal/db"
-	"sharemail/internal/orm"
 
 	"github.com/jackc/pgx/v5"
 )

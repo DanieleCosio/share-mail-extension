@@ -1,9 +1,9 @@
 package server
 
 import (
+	"backend/internal/config"
 	"os"
 	"path"
-	"sharemail/internal/config"
 
 	"github.com/rs/zerolog"
 )

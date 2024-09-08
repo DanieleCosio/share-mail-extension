@@ -1,15 +1,15 @@
 package server
 
 import (
+	"backend/internal/app/components/templates/demo"
+	"backend/internal/config"
 	"log"
 	"net/http"
 	"os"
 	"path"
-	"sharemail/internal/app/components/templates/demo"
-	"sharemail/internal/config"
 
 	"github.com/a-h/templ"
-	/* "sharemail/internal/server/components" */)
+	/* "backend/internal/server/components" */)
 
 func Start() {
 	// Load environment variables from .env file

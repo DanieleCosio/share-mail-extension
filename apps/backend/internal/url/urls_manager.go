@@ -1,9 +1,9 @@
 package url
 
 import (
+	"backend/internal/db"
+	"backend/internal/orm"
 	"context"
-	"sharemail/internal/db"
-	"sharemail/internal/orm"
 
 	"github.com/jackc/pgx/v5"
 )

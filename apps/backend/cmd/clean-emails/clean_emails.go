@@ -1,9 +1,9 @@
 package main
 
 import (
+	"backend/internal/db"
 	"context"
 	"fmt"
-	"sharemail/internal/db"
 	"time"
 
 	"github.com/jackc/pgx/v5/pgtype"
