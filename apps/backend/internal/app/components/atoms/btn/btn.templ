@@ -1,0 +1,20 @@
+package btn
+
+type ButtonAttributes struct {
+	InnerText string `json:"innerText"`
+	OnClick   string `json:"onClick"`
+	Selector  string `json:"selector"`
+}
+
+templ Btn(attributes ButtonAttributes) {
+	<sm-btn
+		text={ attributes.InnerText }
+		click={ attributes.OnClick }
+		selector={ attributes.Selector }
+	>
+		<div>
+			<span>{ attributes.InnerText }</span>
+			{ children... }
+		</div>
+	</sm-btn>
+}

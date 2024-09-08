@@ -1,0 +1,42 @@
+package demo 
+
+import "sharemail/internal/app/components/atoms/btn"
+import "sharemail/internal/app/components/templates/base"
+import "sharemail/internal/app/components/atoms/icon"
+import "sharemail/internal/app/components/molecules/modal"
+import "sharemail/internal/app/components/atoms/loader"
+import "sharemail/internal/app/components/organisms/extensionModal"
+
+var firstButtonAttributes = btn.ButtonAttributes{
+	InnerText: "Open modal!",
+	OnClick:   "demoClickCallback",
+	Selector:  "",
+}
+
+var secondButtonAttributes = btn.ButtonAttributes{InnerText: "", OnClick: "demoClickCallback2"}
+
+var iconAttributes = icon.IconAttributes{Icon: "clipboard", Selector: "demo-selector"}
+
+var modalAttributes = modal.ModalAttributes{Selector: ""}
+
+var loaderAttributes = loader.LoaderAttributes{Active: true, Selector: ""}
+
+var extensionModalAttributes = extensionModal.ExtensionModalAttributes{Selector: ""}
+
+templ content() {
+	<div style="display:flex; flex-direction: column; gap:1rem">
+		@btn.Btn(firstButtonAttributes)
+		@btn.Btn(secondButtonAttributes) {
+			@icon.Icon(iconAttributes, "innerHtml")
+		}
+		@loader.Loader(loaderAttributes)
+	</div>
+	@modal.Modal(modalAttributes) {
+		<div>PROVA</div>
+	}
+	@extensionModal.ExtensionModal(extensionModalAttributes)
+}
+
+templ Demo() {
+	@base.Base(content())
+}

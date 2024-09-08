@@ -1,0 +1,17 @@
+package base 
+
+templ Base(contents templ.Component) {
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>ShareMail</title>
+			<link rel="stylesheet" href="/assets/styles.css"/>
+		</head>
+		<body>
+			@contents
+			<script src="/assets/app.js"></script>
+		</body>
+	</html>
+}

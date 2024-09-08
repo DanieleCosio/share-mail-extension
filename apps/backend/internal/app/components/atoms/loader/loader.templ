@@ -1,0 +1,12 @@
+package loader
+
+import "strconv"
+
+type LoaderAttributes struct {
+	Active   bool   `json:"name"`
+	Selector string `json:"selctor"`
+}
+
+templ Loader(attributes LoaderAttributes) {
+	<sm-loader active={ strconv.FormatBool(attributes.Active) } selector={ attributes.Selector }></sm-loader>
+}

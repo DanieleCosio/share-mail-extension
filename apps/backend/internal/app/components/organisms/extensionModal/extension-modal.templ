@@ -1,0 +1,9 @@
+package extensionModal
+
+type ExtensionModalAttributes struct {
+	Selector string `json:"selector"`
+}
+
+templ ExtensionModal(attributes ExtensionModalAttributes) {
+	<sm-extension-modal selector={ attributes.Selector }></sm-extension-modal>
+}

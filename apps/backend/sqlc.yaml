@@ -1,0 +1,13 @@
+version: "2"
+sql:
+    - engine: "postgresql"
+      # queries refers to where our manually created queries located
+      queries: "database/queries"
+      # schema refers to where our schema definitions located
+      schema: "database/migrations"
+      gen:
+          go:
+              package: "orm"
+              sql_package: "pgx/v5"
+              out: "internal/orm"
+              emit_pointers_for_null_types: true

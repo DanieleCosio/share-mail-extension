@@ -1,0 +1,11 @@
+package icon
+
+type IconAttributes struct {
+	Icon     string `json:"icon"`
+	Selector string `json:"selector"`
+}
+
+templ Icon(attributes IconAttributes, slot string) {
+	// icons internal/app/components/atoms/icon/Icon.ts:39
+	<sm-icon icon={ attributes.Icon } selector={ attributes.Selector }></sm-icon>
+}

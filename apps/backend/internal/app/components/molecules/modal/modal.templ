@@ -1,0 +1,11 @@
+package modal
+
+type ModalAttributes struct {
+	Selector string `json:"selector"`
+}
+
+templ Modal(attributes ModalAttributes) {
+	<sm-modal selector={ attributes.Selector }>
+		{ children... }
+	</sm-modal>
+}
