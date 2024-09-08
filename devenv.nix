@@ -15,14 +15,24 @@
 
   pre-commit.hooks = {
     gofmt.enable = true;
-    govet.enable = true;
-    gotest.enable = true;
+    govet = {
+      enable = true;
+      entry = '' 
+        bash -c "cd apps/backend && exec go vet ./..." 
+      '';
+    };
+    gotest = {
+      enable = true;
+      entry = '' 
+        bash -c "cd apps/backend && exec go test ./..." 
+      '';
+    };
     commitizen.enable = true;
   };
 
   scripts = {
     db-migrate.exec = ''
-      migrate -path apps/backend/database/migrations -database "postgresql:///share_mail?sslmode=disable" $@
+      migrate -path apps/backend/database/migrations -database " postgresql:///share_mail?sslmode=disable " $@
     '';
 
     db-drop.exec = ''
@@ -33,3 +43,4 @@
   env.CGO_ENABLED = 0;
 
 }
+
