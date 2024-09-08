@@ -1,0 +1,24 @@
+{
+    "name": "share-mail-components",
+    "version": "0.0.1",
+    "description": "Components used in share-mail extension",
+    "author": "Daniele Cosio",
+    "license": "ISC",
+    "type": "module",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist/"
+    ],
+    "scripts": {
+        "dev": "nodemon -w 'src' -e 'ts,css,svg,html' --exec '(node esbuild.js && tsc --declaration --emitDeclarationOnly --outDir dist/) || exit 1'",
+        "build": "rm -rf dist/ && node esbuild.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "devDependencies": {
+        "html-minifier": "^4.0.0"
+    },
+    "dependencies": {
+        "@webcomponents/custom-elements": "^1.6.0"
+    }
+}

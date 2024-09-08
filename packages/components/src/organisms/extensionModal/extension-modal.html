@@ -1,0 +1,148 @@
+<sm-modal selector="sm-extension-modal">
+    <span class="sm_modal-title">Get email sharable link</span>
+
+    <div class="sm_link-wrapper">
+        <sm-loader active="false"></sm-loader>
+        <div class="sm_link">
+            <a href="" target="_blank"></a>
+            <time class="sm_link-expiration info-text"></time>
+        </div>
+
+        <button class="sm_copy-to-clipboard hidden">
+            <sm-icon icon="clipboard" name="modal-clipboard-icon"></sm-icon>
+        </button>
+    </div>
+
+    <div class="sm_link-password hidden">
+        <span class="prefix">Code:</span>
+        <span class="value"></span>
+        <br />
+        <span class="info-text">Use if requested.</span>
+    </div>
+
+    <div class="sm_field">
+        <input name="sm_include-attachments" type="checkbox" />
+        <label for="sm_include-attachments">Include attachments</label>
+    </div>
+
+    <sm-btn>Get Link</sm-btn>
+</sm-modal>
+
+<style>
+    .sm_modal .sm_modal-content .sm_copy-to-clipboard {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        border: 2px solid var(--sm_primary-color);
+        box-shadow:
+            1px 1px 0px 0px var(--sm_primary-color),
+            2px 2px 0px 0px var(--sm_primary-color),
+            3px 3px 0px 0px var(--sm_primary-color);
+        width: 26px;
+        height: 26px;
+        margin-left: auto;
+    }
+
+    .sm_modal .sm_modal-content .sm_copy-to-clipboard:active {
+        box-shadow: 0px 0px 0px 0px;
+        transform: translate(3px, 3px);
+    }
+
+    .sm_modal .sm_modal-content .sm_copy-to-clipboard sm-icon,
+    .sm_modal
+        .sm_modal-content
+        .sm_copy-to-clipboard
+        sm-icon::part(modal-clipboard-icon),
+    .sm_modal
+        .sm_modal-content
+        .sm_copy-to-clipboard
+        sm-icon::part(modal-clipboard-icon--svg) {
+        width: 16px;
+        height: 16px;
+    }
+
+    .sm_modal
+        .sm_modal-content
+        .sm_copy-to-clipboard
+        sm-icon::part(modal-clipboard-icon--svg) {
+        color: var(--sm_secondary-color);
+    }
+
+    .sm_modal .sm_modal-content .sm_modal-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: var(--sm_secondary-color);
+    }
+
+    .sm_modal .sm_modal-content {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 12px;
+    }
+
+    .sm_modal .sm_modal-content .sm_field {
+        display: flex;
+        align-items: center;
+    }
+
+    .sm_modal .sm_modal-content .sm_field label {
+        font-size: 0.85rem;
+    }
+
+    .sm_modal .sm_modal-content .sm_field input[type="checkbox"] {
+        accent-color: var(--sm_primary-color);
+        margin-left: 0;
+    }
+
+    .sm_modal .sm_modal-content .sm_link-wrapper {
+        display: flex;
+        margin: 8px 0;
+        height: 30px;
+        width: 100%;
+    }
+
+    .sm_modal .sm_modal-content .sm_link-wrapper a,
+    .sm_modal .sm_modal-content .sm_link-wrapper .sm_link-password {
+        color: var(--sm_secondary-color);
+        text-decoration: none;
+        font-size: 1.1rem;
+        margin-right: 8px;
+    }
+
+    .sm_modal .sm_modal-content .sm_link-password .prefix {
+        background-color: var(--sm_secondary-color);
+        color: #fff;
+        font-weight: 600;
+        margin-right: 0.25rem;
+        padding: 0.15rem;
+    }
+
+    .sm_modal .sm_modal-content .sm_link-password .value {
+        color: var(--sm_secondary-color);
+        background-color: #fff;
+        font-weight: 500;
+        padding: 0;
+    }
+
+    .sm_modal .sm_modal-content .sm_link-password .info-text {
+        margin-top: 0.25rem;
+    }
+
+    .sm_modal .sm_modal-content .sm_link-wrapper a:hover {
+        text-decoration: underline;
+    }
+
+    .sm_modal .sm_modal-content .sm_link-wrapper time,
+    .info-text {
+        font-size: 0.65rem;
+        display: block;
+        transform: translate(0, -2px);
+        color: var(--sm_primary-color);
+    }
+
+    .hidden {
+        display: none !important;
+    }
+</style>

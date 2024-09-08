@@ -1,0 +1,5 @@
+:host > * {
+    --sm_primary-color: #a40000;
+    --sm_secondary-color: #550000;
+    --sm_shadow-color: #a4000044;
+}

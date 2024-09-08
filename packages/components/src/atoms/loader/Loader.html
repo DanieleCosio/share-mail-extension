@@ -1,0 +1,46 @@
+<div class="sm_loader active"></div>
+
+<style>
+    .sm_loader {
+        display: none;
+        width: 30px;
+        aspect-ratio: 1;
+        background:
+            linear-gradient(#fff 0 0),
+            linear-gradient(var(--sm_primary-color) 0 0),
+            linear-gradient(var(--sm_secondary-color) 0 0) #fff;
+        background-position: center;
+        background-repeat: no-repeat;
+        animation: l12 2s infinite;
+    }
+    @keyframes l12 {
+        0% {
+            background-size:
+                100% 100%,
+                100% 100%,
+                100% 100%;
+        }
+        33% {
+            background-size:
+                0px 0px,
+                100% 100%,
+                100% 100%;
+        }
+        66% {
+            background-size:
+                0px 0px,
+                0px 0px,
+                100% 100%;
+        }
+        100% {
+            background-size:
+                0px 0px,
+                0px 0px,
+                0px 0px;
+        }
+    }
+
+    .sm_loader.active {
+        display: block;
+    }
+</style>
