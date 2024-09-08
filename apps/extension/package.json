@@ -15,7 +15,6 @@
         "@types/quoted-printable": "^1.0.2"
     },
     "dependencies": {
-        "quoted-printable": "^1.0.1",
-        "share-mail-components": "file:../share-mail-components"
+        "quoted-printable": "^1.0.1"
     }
 }
