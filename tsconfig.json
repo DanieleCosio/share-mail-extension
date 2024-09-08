@@ -5,8 +5,8 @@
         "skipLibCheck": true,
         "moduleResolution": "bundler",
         "outDir": "dist",
-        "types": ["./src/types.d.ts", "chrome"],
+        "esModuleInterop": true, 
         
     },
-    "include": ["src/**/*", "tests/**/*"]
+    "include": ["apps/extension/src/**/*", "tests/**/*"]
 }

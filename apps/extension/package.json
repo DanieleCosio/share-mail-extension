@@ -1,0 +1,21 @@
+{
+    "name": "extension",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "build-chrome": "make build-chrome",
+        "dev-chrome": "nodemon  -w 'src' -e 'ts,json,html,css,scss' --exec 'make dev-chrome || exit 1'"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/chrome": "^0.0.266",
+        "@types/quoted-printable": "^1.0.2"
+    },
+    "dependencies": {
+        "quoted-printable": "^1.0.1",
+        "share-mail-components": "file:../share-mail-components"
+    }
+}
