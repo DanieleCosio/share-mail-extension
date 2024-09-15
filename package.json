@@ -4,7 +4,13 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "backend:start": "cd apps/backend/ && go run cmd/server/server.go",
+        "backend:build": "cd apps/backend/ && npm run build",
+        "backend:dev": "cd apps/backend/ && npm run dev",
+        "ext:build": "cd apps/extension/ && npm run build-chrome",
+        "ext:dev": "cd apps/extension/ && npm run dev-chrome",
+        "components:build": "cd packages/components/ && npm run build",
+        "components:dev": "cd packages/components/ && npm run dev"
     },
     "author": "",
     "license": "ISC",
@@ -23,9 +29,10 @@
         "eslint-plugin-prettier": "^5.1.3",
         "nodemon": "^3.0.3",
         "prettier": "^3.2.5",
+        "tsconfig-paths": "^4.2.0",
         "typescript": "^5.3.3"
     },
     "dependencies": {
-        "share-mail-components": "^0.0.1"
+        "@share-mail/components": "^0.0.1"
     }
 }
