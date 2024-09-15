@@ -10,8 +10,7 @@ import {
 } from "../types";
 import { pageHtmlToElement } from "./utils";
 import { decode } from "quoted-printable";
-import { ExtensionModal } from "share-mail-components";
-
+import { ExtensionModal } from "@share-mail/components";
 export class GmailService {
     static waitGmailUI(
         timeout: number = 3500,
