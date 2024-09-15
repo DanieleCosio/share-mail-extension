@@ -1,6 +1,22 @@
-import * as esbuild from "esbuild";
-import { createBuildSettings } from "./settings.js";
 import process from "process";
+import * as esbuild from "esbuild";
+import esbuildPluginTsc from "esbuild-plugin-tsc";
+
+const config = {
+    outdir: "dist/",
+    bundle: true,
+    loader: {
+        ".css": "text",
+        ".html": "text",
+        ".svg": "text",
+    },
+
+    plugins: [
+        esbuildPluginTsc({
+            force: true,
+        }),
+    ],
+};
 
 const browsers = {
     CHROME: "Chrome",
@@ -8,21 +24,22 @@ const browsers = {
 };
 
 const args = process.argv.slice(2);
-const buildSettings = { minify: false };
 let browser = browsers.CHROME;
 
 if (args.includes("--dev")) {
-    buildSettings.minify = false;
-    buildSettings.sourcemap = "inline";
+    config.minify = false;
+    config.sourcemap = "inline";
 }
 
 if (args.includes("--firefox")) {
     browser = browsers.FIREFOX;
 }
 
-buildSettings.entryPoints = [
-    `src/scripts/${browser}/content.ts`,
-    `src/scripts/${browser}/background.ts`,
-];
+//background.js build
+config.entryPoints = [`src/scripts/${browser}/background.ts`];
+await esbuild.build(config);
 
-await esbuild.build(createBuildSettings(buildSettings));
+// content.js build
+config.inject = ["src/components-shim.ts"];
+config.entryPoints = [`src/scripts/${browser}/content.ts`];
+await esbuild.build(config);
