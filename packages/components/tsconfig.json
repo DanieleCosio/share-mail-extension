@@ -1,7 +1,11 @@
 {
     "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "types": ["./src/types.d.ts"]
+        "types": ["./src/types.d.ts"],
+        "outDir": "dist/",
+        "declaration": true,
+        "declarationMap": true,
+        "emitDeclarationOnly": true
     },
 
     "include": ["src/**/*"]

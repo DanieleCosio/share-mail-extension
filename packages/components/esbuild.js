@@ -2,7 +2,6 @@ import esbuildPluginTsc from "esbuild-plugin-tsc";
 import * as esbuild from "esbuild";
 import { readFile } from "fs/promises";
 import { minify } from "html-minifier";
-import npmDts from "npm-dts";
 
 const cssMinifyPlugin = {
     name: "cssMinifyPlugin",
@@ -68,49 +67,12 @@ const config = {
         svgMinifyPlugin,
     ],
 
-    minify: false,
+    minify: true,
     sourcemap: true,
     entryPoints: ["src/index.ts"],
     target: ["es6"],
     format: "esm",
     treeShaking: true,
-    /* external: [].concat.apply(
-        [],
-        [Object.keys(dependencies), Object.keys(peerDependencies)],
-    ), */
 };
 
-/* const configEsm = {
-    outfile: "dist/index.esm.js",
-    bundle: true,
-    loader: {
-        ".svg": "text",
-        ".css": "text",
-        ".html": "text",
-    },
-
-    plugins: [
-        esbuildPluginTsc({
-            force: true,
-        }),
-        htmlMinifyPlugin,
-        cssMinifyPlugin,
-        svgMinifyPlugin,
-    ],
-
-    minify: false,
-    treeShaking: true,
-    platform: "node",
-    format: "esm",
-    sourcemap: "external",
-    entryPoints: ["src/index.ts"],
-}; */
-
 await esbuild.build(config);
-/* await esbuild.build(configEsm); */
-
-/* new npmDts.Generator({
-    entry: "src/index.ts",
-    output: "dist/index.d.ts",
-}).generate();
- */
