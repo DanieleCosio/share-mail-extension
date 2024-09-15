@@ -1,9 +1,9 @@
 import "@webcomponents/custom-elements";
 import ExtensionModalHtml from "./extension-modal.html";
-import Modal from "../../molecules/modal/Modal.js";
+import { Modal } from "../../molecules/modal/Modal.js";
 import { loadGlobalStylesheet } from "../../utils";
 
-class ExtensionModal extends HTMLElement {
+export class ExtensionModal extends HTMLElement {
     public static name = "sm-extension-modal";
     modalRef: Modal | null;
     loader: HTMLElement | null;
@@ -170,5 +170,3 @@ class ExtensionModal extends HTMLElement {
 }
 
 customElements.define(ExtensionModal.name, ExtensionModal);
-
-export default ExtensionModal;

@@ -1,6 +1,6 @@
-export * from "./types";
-export * from "./atoms/btn/Btn";
-export * from "./atoms/icon/Icon";
-export * from "./molecules/modal/Modal";
-export * from "./atoms/loader/Loader";
-export * from "./organisms/extensionModal/ExtensionModal";
+export { EventCallback, MouseEventCallback, BaseComponent } from "./types";
+export { Btn } from "./atoms/btn/Btn";
+export { Icon } from "./atoms/icon/Icon";
+export { Modal } from "./molecules/modal/Modal";
+export { Loader } from "./atoms/loader/Loader";
+export { ExtensionModal } from "./organisms/extensionModal/ExtensionModal";

@@ -3,7 +3,7 @@ import ModalHtml from "./Modal.html";
 import { BaseComponent } from "../../types.js";
 import { loadGlobalStylesheet } from "../../utils";
 
-class Modal extends HTMLElement implements BaseComponent {
+export class Modal extends HTMLElement implements BaseComponent {
     public static name = "sm-modal";
     modal: HTMLElement | null;
 
@@ -59,5 +59,3 @@ class Modal extends HTMLElement implements BaseComponent {
 }
 
 customElements.define(Modal.name, Modal);
-
-export default Modal;

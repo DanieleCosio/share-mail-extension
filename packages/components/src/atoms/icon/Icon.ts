@@ -5,7 +5,7 @@ import CliboardCheckSvg from "./clipboard-check.svg";
 import CloseSvg from "./close.svg";
 import { BaseComponent } from "../../types.js";
 
-class Icon extends HTMLElement implements BaseComponent {
+export class Icon extends HTMLElement implements BaseComponent {
     public static name = "sm-icon";
     public iconSvg: string | null;
     public iconElement: Element | null;
@@ -66,5 +66,3 @@ class Icon extends HTMLElement implements BaseComponent {
 }
 
 customElements.define(Icon.name, Icon);
-
-export default Icon;

@@ -3,7 +3,7 @@ import LoaderHtml from "./Loader.html";
 import { BaseComponent } from "../../types.js";
 import { loadGlobalStylesheet } from "../../utils";
 
-class Loader extends HTMLElement implements BaseComponent {
+export class Loader extends HTMLElement implements BaseComponent {
     public static name = "sm-loader";
     loader: HTMLElement | null;
 
@@ -49,5 +49,3 @@ class Loader extends HTMLElement implements BaseComponent {
 }
 
 customElements.define(Loader.name, Loader);
-
-export default Loader;

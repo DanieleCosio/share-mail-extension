@@ -3,7 +3,7 @@ import BtnHtml from "./Btn.html";
 import { BaseComponent, MouseEventCallback } from "../../types.js";
 import { getSsrCallback, loadGlobalStylesheet } from "../../utils.js";
 
-class Btn extends HTMLElement implements BaseComponent {
+export class Btn extends HTMLElement implements BaseComponent {
     private buttonElement: HTMLButtonElement | undefined | null;
     public static name = "sm-btn";
 
@@ -55,5 +55,3 @@ class Btn extends HTMLElement implements BaseComponent {
 }
 
 customElements.define(Btn.name, Btn);
-
-export default Btn;
