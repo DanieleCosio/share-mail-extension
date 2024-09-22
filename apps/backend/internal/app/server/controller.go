@@ -46,14 +46,14 @@ func getEmailLink(w http.ResponseWriter, r *http.Request) {
 	}
 
 	email := models.Email{
-		Email: orm.Email{
-			OwnerAddress: messageData.RequestAccountOwner,
-			EmailSubject: messageData.Subject,
-			EmailHtml:    messageData.MessageHtml,
-		},
+		OwnerAddress: messageData.RequestAccountOwner,
+		EmailSubject: messageData.Subject,
+		EmailHtml:    messageData.MessageHtml,
+
+		Attachments: &messageData.Attachments,
 	}
 
-	email.GenereteHash(messageData.Attachments)
+	email.GenereteHash()
 
 	savedEmail, err := sqlOrm.GetEmailByHash(ctx, email.EmailHash)
 	emailExist := true
@@ -70,10 +70,10 @@ func getEmailLink(w http.ResponseWriter, r *http.Request) {
 	var url orm.Url
 	if !emailExist {
 		savedEmail, err = sqlOrm.CreateEmail(ctx, orm.CreateEmailParams{
-			OwnerAddress: messageData.RequestAccountOwner,
-			EmailSubject: messageData.Subject,
-			EmailHtml:    messageData.MessageHtml,
-			EmailHash:    email.Email.EmailHash,
+			OwnerAddress: email.OwnerAddress,
+			EmailSubject: email.EmailSubject,
+			EmailHtml:    email.EmailHtml,
+			EmailHash:    email.EmailHash,
 		})
 
 		if err != nil {
@@ -82,7 +82,7 @@ func getEmailLink(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		for _, attachment := range messageData.Attachments {
+		for _, attachment := range *email.Attachments {
 			_, err := sqlOrm.CreateAttachment(ctx, orm.CreateAttachmentParams{
 				EmailID:       savedEmail.ID,
 				Name:          attachment.Name,
@@ -128,7 +128,7 @@ func getEmailLink(w http.ResponseWriter, r *http.Request) {
 
 	sqlOrm = nil
 
-	expirationDate := email.Email.CreatedAt.Time.AddDate(0, 0, 2)
+	expirationDate := savedEmail.CreatedAt.Time.AddDate(0, 0, 2)
 	jsonResponse := GetEmailLinkResponse{
 		Url: fmt.Sprintf(
 			"%s/%s/%s",
