@@ -2,8 +2,6 @@
     "name": "@share-mail/components",
     "version": "0.0.1",
     "description": "Components used in share-mail extension",
-    "author": "Daniele Cosio",
-    "license": "ISC",
     "type": "module",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -20,5 +18,10 @@
     },
     "dependencies": {
         "@webcomponents/custom-elements": "^1.6.0"
+    },
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DanieleCosio/share-mail-extension.git"
     }
 }

@@ -2,17 +2,10 @@
     "name": "share-mail-bk",
     "version": "0.0.1",
     "description": "Backend for ShareMail browser extension",
-    "main": "index.js",
     "type": "module",
     "scripts": {
         "dev": "nodemon  -w 'internal' -e 'ts,css,svg,templ,html' --exec 'make dev || exit 1'"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/DanieleCosio/share-mail-backend.git"
-    },
-    "author": "",
-    "license": "ISC",
     "bugs": {
         "url": "https://github.com/DanieleCosio/share-mail-backend/issues"
     },
@@ -23,5 +16,11 @@
         "postcss-import": "^16.1.0",
         "postcss-nested": "^6.2.0"
     },
-    "dependencies": {}
+    "dependencies": {},
+    "author": "Daniele Cosio",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DanieleCosio/share-mail-extension.git"
+    }
 }

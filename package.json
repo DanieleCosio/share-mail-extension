@@ -1,8 +1,7 @@
 {
     "name": "share-mail",
     "version": "0.0.1",
-    "description": "",
-    "main": "index.js",
+    "description": "Share your email using a link",
     "scripts": {
         "backend:start": "cd apps/backend/ && go run cmd/server/server.go",
         "backend:build": "cd apps/backend/ && npm run build",
@@ -12,8 +11,6 @@
         "components:build": "cd packages/components/ && npm run build",
         "components:dev": "cd packages/components/ && npm run dev"
     },
-    "author": "",
-    "license": "ISC",
     "workspaces": [
         "packages/*",
         "apps/*"
@@ -34,5 +31,11 @@
     },
     "dependencies": {
         "@share-mail/components": "^0.0.1"
+    },
+    "author": "Daniele Cosio",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DanieleCosio/share-mail-extension.git"
     }
 }
